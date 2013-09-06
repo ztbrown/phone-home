@@ -3,7 +3,7 @@ PhoneHome::Application.routes.draw do
 
   resources :trackers
 
-  get '/images/:token', to: 'images#show'
+  get '/images/:token', to: 'images#show', as: :images
 
   root to: 'trackers#index'
 end

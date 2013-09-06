@@ -14,4 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require ZeroClipboard
 //= require_tree .
+
+$(function () {
+
+    $('.js-zeroclipboard').each(function (idx, element) {
+        new ZeroClipboard(element, { moviePath: '/assets/ZeroClipboard.swf' });
+    });
+
+});

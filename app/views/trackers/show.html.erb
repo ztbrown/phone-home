@@ -1,6 +1,10 @@
 <h1><%= @tracker.name %></h1>
 
-<p><strong>Token:</strong> <%= @tracker.token %></p>
+<div class="input-prepend input-append">
+    <div class="add-on">Tracking URL:</div>
+    <input class="input-xxlarge" id="appendedInputButton" type="text" value="<%= images_url(@tracker.token) %>">
+    <a class="add-on btn js-zeroclipboard" data-clipboard-text="<%= images_url(@tracker.token) %>" title="Copy to Clipboard"><i class="icon-copy"></i></a>
+</div>
 
 <h2>Viewings:</h2>
 
