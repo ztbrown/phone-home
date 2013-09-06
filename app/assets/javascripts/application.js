@@ -20,7 +20,7 @@
 $(function () {
 
     $('.js-zeroclipboard').each(function (idx, element) {
-        new ZeroClipboard(element, { moviePath: '/assets/ZeroClipboard.swf' });
+        new ZeroClipboard(element, { moviePath: '/ZeroClipboard.swf' });
     });
 
 });

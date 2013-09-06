@@ -25,6 +25,8 @@ class TrackersController < ApplicationController
     @tracker = current_user.trackers.build(tracker_params)
 
     if @tracker.save
+      @tracker.create_activity(:created)
+
       redirect_to @tracker, notice: 'Tracker was successfully created.'
     else
       render action: 'new'
