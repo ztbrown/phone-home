@@ -1,8 +1,21 @@
-<h1><%= @tracker.name %></h1>
+<div class="page-header">
+    <div class="pull-right">
+        <% if @tracker.active? %>
+            <%= link_to 'Deactivate', deactivate_tracker_path(@tracker), method: :put, class: 'btn' %>
+        <% else %>
+            <%= link_to 'Activate', activate_tracker_path(@tracker), method: :put, class: 'btn' %>
+        <% end %>
+
+        <%= link_to 'Edit', edit_tracker_path(@tracker), class: 'btn' %>
+        <%= link_to 'Destroy', @tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+
+    <h1><%= @tracker.name %></h1>
+</div>
 
 <div class="input-prepend input-append">
     <div class="add-on">Tracking URL:</div>
-    <input class="input-xxlarge" id="appendedInputButton" type="text" value="<%= images_url(@tracker.token) %>">
+    <input class="input-xlarge" id="appendedInputButton" type="text" value="<%= images_url(@tracker.token) %>">
     <a class="add-on btn js-zeroclipboard" data-clipboard-text="<%= images_url(@tracker.token) %>" title="Copy to Clipboard"><i class="icon-copy"></i></a>
 </div>
 
@@ -11,7 +24,3 @@
 <ul>
     <%= render_activity(@activities) %>
 </ul>
-
-<%= link_to 'Edit', edit_tracker_path(@tracker) %> |
-<%= link_to 'Back', trackers_path %> |
-<%= link_to 'Destroy', @tracker, method: :delete, data: { confirm: 'Are you sure?' } %>

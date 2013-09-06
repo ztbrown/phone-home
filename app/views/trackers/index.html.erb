@@ -1,9 +1,16 @@
-<h1>Listing trackers</h1>
+<div class="page-header">
+    <div class="pull-right">
+        <%= link_to 'New Tracker', new_tracker_path, class: 'btn btn-primary' %>
+    </div>
+
+    <h1>Listing trackers</h1>
+</div>
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Name</th>
+            <th>Status</th>
             <th>Token</th>
             <th></th>
         </tr>
@@ -13,14 +20,19 @@
         <% @trackers.each do |tracker| %>
             <tr>
                 <td><%= tracker.name %></td>
+                <td><%= tracker.active? ? 'Active' : 'Inactive' %></td>
                 <td><%= tracker.token %></td>
                 <td>
-                    <%= link_to 'Show', tracker %> | <%= link_to 'Edit', edit_tracker_path(tracker) %> | <%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <% if tracker.active? %>
+                        <%= link_to 'Deactivate', deactivate_tracker_path(tracker), method: :put, class: 'btn btn-mini' %>
+                    <% else %>
+                        <%= link_to 'Activate', activate_tracker_path(tracker), method: :put, class: 'btn btn-mini' %>
+                    <% end %>
+                    <%= link_to 'Show', tracker, class: 'btn btn-mini' %>
+                    <%= link_to 'Edit', edit_tracker_path(tracker), class: 'btn btn-mini' %>
+                    <%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini' %>
+                </td>
             </tr>
         <% end %>
     </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Tracker', new_tracker_path %>

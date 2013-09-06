@@ -3,6 +3,7 @@ class CreateTrackers < ActiveRecord::Migration
     create_table :trackers do |t|
       t.string :name
       t.string :token
+      t.boolean :active
       t.references :user, index: true
 
       t.timestamps

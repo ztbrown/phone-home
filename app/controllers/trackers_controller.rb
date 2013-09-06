@@ -1,14 +1,12 @@
 class TrackersController < ApplicationController
-  before_action :set_tracker, only: [:show, :edit, :update, :destroy]
+  before_action :set_tracker, only: [:show, :edit, :update, :destroy, :activate, :deactivate]
 
   # GET /trackers
-  # GET /trackers.json
   def index
     @trackers = current_user.trackers
   end
 
   # GET /trackers/1
-  # GET /trackers/1.json
   def show
     @activities = PublicActivity::Activity.where(trackable_type: 'Tracker', trackable_id: params[:id]).order('created_at DESC')
   end
@@ -23,43 +21,46 @@ class TrackersController < ApplicationController
   end
 
   # POST /trackers
-  # POST /trackers.json
   def create
     @tracker = current_user.trackers.build(tracker_params)
 
-    respond_to do |format|
-      if @tracker.save
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @tracker }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @tracker.errors, status: :unprocessable_entity }
-      end
+    if @tracker.save
+      redirect_to @tracker, notice: 'Tracker was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /trackers/1
-  # PATCH/PUT /trackers/1.json
   def update
-    respond_to do |format|
-      if @tracker.update(tracker_params)
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @tracker.errors, status: :unprocessable_entity }
-      end
+    if @tracker.update(tracker_params)
+      redirect_to @tracker, notice: 'Tracker was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   # DELETE /trackers/1
-  # DELETE /trackers/1.json
   def destroy
     @tracker.destroy
-    respond_to do |format|
-      format.html { redirect_to trackers_url }
-      format.json { head :no_content }
-    end
+
+    redirect_to trackers_url
+  end
+
+  # PUT /trackers/1/activate
+  def activate
+    @tracker.update(active: true)
+    @tracker.create_activity(:activated)
+
+    redirect_to :back
+  end
+
+  # PUT /trackers/1/deactivate
+  def deactivate
+    @tracker.update(active: false)
+    @tracker.create_activity(:deactivated)
+
+    redirect_to :back
   end
 
   private
