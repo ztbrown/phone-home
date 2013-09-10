@@ -13,6 +13,7 @@ PhoneHome::Application.routes.draw do
       resources :tokens, only: [:create] do
         delete :destroy, on: :collection
       end
+
       resources :trackers do
         member do
           put :activate
@@ -21,7 +22,6 @@ PhoneHome::Application.routes.draw do
       end
     end
   end
-
 
   get '/images/:token', to: 'images#show', as: :images
 

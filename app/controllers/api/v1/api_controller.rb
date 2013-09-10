@@ -17,6 +17,10 @@ module Api
         render json: { error: exception.message }, status: 400
       end
 
+      rescue_from ActionController::ParameterMissing do |exception|
+        render json: { error: exception.message }, status: 400
+      end
+
       private
 
       def skip_trackable

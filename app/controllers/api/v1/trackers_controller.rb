@@ -11,7 +11,6 @@ module Api
           @tracker.create_activity(:created)
         end
 
-
         render json: @tracker, status: 200
       end
 
@@ -28,10 +27,11 @@ module Api
         @tracker.update(active: false)
         @tracker.create_activity(:deactivated)
 
-        redirect_to :back
+        render json: @tracker, status: 200
       end
 
       private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_tracker
         @tracker = Tracker.find(params[:id])
@@ -42,6 +42,5 @@ module Api
         params.require(:tracker).permit(:name)
       end
     end
-
   end
 end
