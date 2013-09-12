@@ -14,6 +14,7 @@ gem 'simple_form', '~> 3.0.0.rc'
 gem 'gravtastic', '~> 3.2.6'
 gem 'cancan', '~> 1.6.10'
 gem 'thin', '~> 1.5.1'
+gem 'geocoder'
 
 group :development do
   gem 'sqlite3', '~> 1.3.8'

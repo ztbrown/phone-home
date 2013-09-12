@@ -1,3 +1,3 @@
 <li>
-    Viewed by <%= activity.parameters[:ip] %> <%= time_ago_in_words(activity.created_at) %> ago.
+    Viewed by <%= activity.parameters[:ip] %> near <%= activity.parameters[:city] %>, <%= activity.parameters[:state] %>, <%= activity.parameters[:country] %>,  <%= time_ago_in_words(activity.created_at) %> ago.
 </li>
