@@ -11,6 +11,7 @@
         <tr>
             <th>Name</th>
             <th>Status</th>
+            <th>Views</th>
             <th>Token</th>
             <th></th>
         </tr>
@@ -21,6 +22,7 @@
             <tr>
                 <td><%= tracker.name %></td>
                 <td><%= tracker.active? ? 'Active' : 'Inactive' %></td>
+                <td><%= PublicActivity::Activity.where(trackable_type: 'Tracker', trackable_id: tracker.id, key: "tracker.viewed").count %></td>
                 <td><%= tracker.token %></td>
                 <td>
                     <% if tracker.active? %>
